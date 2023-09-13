@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.form {
+  background-color: #76ee86;
+  padding: 20px;
+  margin: 20px;
+  width: 300px;
+}
+
+#blockchain-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

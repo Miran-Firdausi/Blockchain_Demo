@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <link href="./blockchain.css" rel="stylesheet"  >
+</head>
+<body>
+<h1>Blockchain</h1>
+<div id="blockchain-container">
+    <div class=form id="block1">
+        <label>Block</label>
+        <input id="block1Number" type="number" value="1"><br>
+        <label>Data</label>
+        <textarea rows="12"></textarea><br>
+        <label>Prev</label>
+        <input type="text" value="00000000000000000000000" disabled><br>
+        <label>Next</label>
+        <input type="text" value="A13G218GF32ASD91382ASD9SD22" disabled><br>
+    </div>
+</div>
+<script>
+    // JavaScript to link Prev input fields
+    const blockchainContainer = document.getElementById("blockchain-container");
+    const block = document.getElementById("block1");
+    for (let i = 2; i <= 100; i++) {
+        // Clone the template block
+        const clonedBlock = block.cloneNode(true);
+
+        // Set unique IDs for each cloned block
+        clonedBlock.id = `block${i}`;
+        
+        // Find the input element and set its ID and value
+        const blockNumberInput = clonedBlock.querySelector('input[type="number"]');
+        if (blockNumberInput) {
+            blockNumberInput.id = `block${i}Number`;
+            blockNumberInput.value = i;
+        }
+
+        // Append the cloned block to the blockchain container
+        blockchainContainer.appendChild(clonedBlock);
+    }
+</script>
+</body>
+</html>
