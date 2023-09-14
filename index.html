@@ -5,39 +5,84 @@
     <link href="./blockchain.css" rel="stylesheet"  >
 </head>
 <body>
-<h1>Blockchain</h1>
+<h1>B-L-O-C-K-C-H-A-I-N</h1>
 <div id="blockchain-container">
     <div class=form id="block1">
-        <label>Block</label>
-        <input id="block1Number" type="number" value="1"><br>
-        <label>Data</label>
-        <textarea rows="12"></textarea><br>
-        <label>Prev</label>
-        <input type="text" value="00000000000000000000000" disabled><br>
-        <label>Next</label>
-        <input type="text" value="A13G218GF32ASD91382ASD9SD22" disabled><br>
+        <div class="lid"></div>
+        <div class="message">
+            <div class="prev-dialog">
+                Prev <input type="text" value="0000000000" class="block-prev" size="10" disabled>
+            </div>
+            <div class="hash-dialog">
+                Hash <input type="text" value="A13G218GF3" class="block-hash" size="10" disabled>
+            </div>
+        </div>
+        <div class="block-body">
+            <p class=block-number>
+                BLOCK <span class="block-num" id="block1Number">1</span>
+            </p>
+            <img class="chain" src="./chain.png" height="50px">
+        </div>
     </div>
 </div>
 <script>
     // JavaScript to link Prev input fields
     const blockchainContainer = document.getElementById("blockchain-container");
     const block = document.getElementById("block1");
+
+    var hashNumber = "A13G218GF3";
+
     for (let i = 2; i <= 100; i++) {
-        // Clone the template block
         const clonedBlock = block.cloneNode(true);
 
-        // Set unique IDs for each cloned block
         clonedBlock.id = `block${i}`;
+        clonedBlock.classList.add('block-prev');
+
+        const prev = clonedBlock.querySelector(".block-prev");
+        const hash = clonedBlock.querySelector(".block-hash");
         
-        // Find the input element and set its ID and value
-        const blockNumberInput = clonedBlock.querySelector('input[type="number"]');
+        if (i===42) {
+            hash.value = "AABB112233";
+        } else {
+            hash.value = generateRandomHash(10);
+        }
+        
+        prev.value = hashNumber;
+        hashNumber = hash.value;
+       
+        const blockNumberInput = clonedBlock.querySelector('.block-num');
+
         if (blockNumberInput) {
             blockNumberInput.id = `block${i}Number`;
-            blockNumberInput.value = i;
+            blockNumberInput.innerHTML = i;
         }
 
-        // Append the cloned block to the blockchain container
         blockchainContainer.appendChild(clonedBlock);
+    }
+    function generateRandomHash(length) {
+        const characters = '0123456789ABCDEF';
+        let hash = '';
+
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            hash += characters[randomIndex];
+        }
+
+        return hash;
+    }
+
+    for (let i=0; i<100; i++) {
+        const blocks = document.querySelectorAll('.form');
+        blocks[i].addEventListener("click", ()=>{
+            const message = blocks[i].querySelector(".message");
+            const lid = blocks[i].querySelector(".lid");
+            message.classList.add("show");
+            lid.classList.add("open");
+            if (i>=41) {
+                blocks[i].querySelector(".block-body").classList.add("wrong");
+                blocks[i].querySelector(".lid").classList.add("wrong");
+            }
+        })
     }
 </script>
 </body>
